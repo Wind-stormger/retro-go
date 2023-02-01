@@ -64,6 +64,7 @@
 #define RG_GPIO_SDSPI_CMD          GPIO_NUM_41
 #define RG_GPIO_SDSPI_CLK          GPIO_NUM_40
 #define RG_GPIO_SDSPI_D0           GPIO_NUM_39
+#define RG_GPIO_SDSPI_CS           GPIO_NUM_42
 
 // External I2S DAC
 #define RG_GPIO_SND_I2S_BCK         GPIO_NUM_18
