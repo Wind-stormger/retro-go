@@ -113,7 +113,7 @@ static inline uint32_t gamepad_read(void)
 #elif RG_GAMEPAD_DRIVER == 5  // I2C ESPLAY
 
 	uint8_t data[5];
-    if (rg_i2c_read(0x3f, -1, &data, 5))
+    if (rg_i2c_read(0x20, -1, &data, 5))
     {
         int buttons = ~((data[2] << 8) | data[1]);
 
