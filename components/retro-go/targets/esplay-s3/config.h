@@ -4,8 +4,8 @@
 #define RG_TARGET_NAME             "ESPLAY-S3"
 
 // Storage
-#define RG_STORAGE_DRIVER           2                   // 0 = Host, 1 = SDSPI, 2 = SDMMC, 3 = USB, 4 = Flash
-#define RG_STORAGE_HOST             SDMMC_HOST_SLOT_1   // Used by driver 1 and 2
+#define RG_STORAGE_DRIVER           1                   // 0 = Host, 1 = SDSPI, 2 = SDMMC, 3 = USB, 4 = Flash
+#define RG_STORAGE_HOST             SPI2_HOST   // Used by driver 1 and 2
 #define RG_STORAGE_SPEED            SDMMC_FREQ_DEFAULT  // Used by driver 1 and 2
 #define RG_STORAGE_ROOT             "/sd"               // Storage mount point
 
@@ -27,42 +27,46 @@
 #define RG_SCREEN_MARGIN_RIGHT      0
 
 // Input
-#define RG_GAMEPAD_DRIVER           3   // 1 = ODROID-GO, 2 = Serial, 3 = I2C
+#define RG_GAMEPAD_DRIVER           1   // 1 = ODROID-GO, 2 = Serial, 3 = I2C
 #define RG_GAMEPAD_HAS_MENU_BTN     1
 #define RG_GAMEPAD_HAS_OPTION_BTN   1
 // Note: Depending on the driver, the button map can represent bits, registers, keys, or gpios.
-#define RG_GAMEPAD_MAP_MENU         (0)
-#define RG_GAMEPAD_MAP_OPTION       (0)
-#define RG_GAMEPAD_MAP_START        (1<<0)
-#define RG_GAMEPAD_MAP_SELECT       (1<<1)
-#define RG_GAMEPAD_MAP_UP           (1<<2)
-#define RG_GAMEPAD_MAP_RIGHT        (1<<5)
-#define RG_GAMEPAD_MAP_DOWN         (1<<3)
-#define RG_GAMEPAD_MAP_LEFT         (1<<4)
-#define RG_GAMEPAD_MAP_A            (1<<6)
-#define RG_GAMEPAD_MAP_B            (1<<7)
-#define RG_GAMEPAD_MAP_X            (0)
-#define RG_GAMEPAD_MAP_Y            (0)
-#define RG_GAMEPAD_MAP_L            (0)
-#define RG_GAMEPAD_MAP_R            (0)
+// #define RG_GAMEPAD_MAP_MENU         (0)
+// #define RG_GAMEPAD_MAP_OPTION       (0)
+// #define RG_GAMEPAD_MAP_START        (1<<0)
+// #define RG_GAMEPAD_MAP_SELECT       (1<<1)
+// #define RG_GAMEPAD_MAP_UP           (1<<2)
+// #define RG_GAMEPAD_MAP_RIGHT        (1<<5)
+// #define RG_GAMEPAD_MAP_DOWN         (1<<3)
+// #define RG_GAMEPAD_MAP_LEFT         (1<<4)
+// #define RG_GAMEPAD_MAP_A            (1<<6)
+// #define RG_GAMEPAD_MAP_B            (1<<7)
+// #define RG_GAMEPAD_MAP_X            (0)
+// #define RG_GAMEPAD_MAP_Y            (0)
+// #define RG_GAMEPAD_MAP_L            (0)
+// #define RG_GAMEPAD_MAP_R            (0)
 
 // Battery
-#define RG_BATTERY_ADC_CHANNEL      ADC1_CHANNEL_3
+#define RG_BATTERY_ADC_CHANNEL      ADC1_CHANNEL_3 //GPIO_NUM_4
 #define RG_BATTERY_CALC_PERCENT(raw) (((raw) * 2.f - 3500.f) / (4200.f - 3500.f) * 100.f)
 #define RG_BATTERY_CALC_VOLTAGE(raw) ((raw) * 2.f * 0.001f)
 
 // Status LED
-#define RG_GPIO_LED                 GPIO_NUM_2
+#define RG_GPIO_LED                 GPIO_NUM_48
 
 // I2C BUS
-#define RG_GPIO_I2C_SDA             GPIO_NUM_10
-#define RG_GPIO_I2C_SCL             GPIO_NUM_11
+// #define RG_GPIO_I2C_SDA             GPIO_NUM_10
+// #define RG_GPIO_I2C_SCL             GPIO_NUM_9
 
 // Built-in gamepad
-#define RG_GPIO_GAMEPAD_L           GPIO_NUM_40
-#define RG_GPIO_GAMEPAD_R           GPIO_NUM_41
-#define RG_GPIO_GAMEPAD_MENU        GPIO_NUM_42
-#define RG_GPIO_GAMEPAD_OPTION      GPIO_NUM_41
+#define RG_GPIO_GAMEPAD_X           ADC1_CHANNEL_6 //GPIO_NUM_7
+#define RG_GPIO_GAMEPAD_Y           ADC1_CHANNEL_7 //GPIO_NUM_8
+#define RG_GPIO_GAMEPAD_SELECT      GPIO_NUM_5
+#define RG_GPIO_GAMEPAD_START       GPIO_NUM_6
+#define RG_GPIO_GAMEPAD_A           GPIO_NUM_1
+#define RG_GPIO_GAMEPAD_B           GPIO_NUM_2
+#define RG_GPIO_GAMEPAD_MENU        GPIO_NUM_3
+#define RG_GPIO_GAMEPAD_OPTION      GPIO_NUM_0
 
 // SNES-style gamepad
 // #define RG_GPIO_GAMEPAD_LATCH       GPIO_NUM_NC
@@ -71,20 +75,21 @@
 
 // SPI Display
 #define RG_GPIO_LCD_MISO            GPIO_NUM_NC
-#define RG_GPIO_LCD_MOSI            GPIO_NUM_12
-#define RG_GPIO_LCD_CLK             GPIO_NUM_48
-#define RG_GPIO_LCD_CS              GPIO_NUM_8
-#define RG_GPIO_LCD_DC              GPIO_NUM_47
-#define RG_GPIO_LCD_BCKL            GPIO_NUM_39
-#define RG_GPIO_LCD_RST             GPIO_NUM_3
+#define RG_GPIO_LCD_CLK             GPIO_NUM_35
+#define RG_GPIO_LCD_MOSI            GPIO_NUM_36
+#define RG_GPIO_LCD_RST             GPIO_NUM_37
+#define RG_GPIO_LCD_DC              GPIO_NUM_38
+#define RG_GPIO_LCD_CS              GPIO_NUM_39
+#define RG_GPIO_LCD_BCKL            GPIO_NUM_40
 
 // SPI SD Card
-#define RG_GPIO_SDSPI_CMD          GPIO_NUM_14
-#define RG_GPIO_SDSPI_CLK          GPIO_NUM_21
-#define RG_GPIO_SDSPI_D0           GPIO_NUM_17
+#define RG_GPIO_SDSPI_MISO          GPIO_NUM_41
+#define RG_GPIO_SDSPI_MOSI          GPIO_NUM_36
+#define RG_GPIO_SDSPI_CLK           GPIO_NUM_35
+#define RG_GPIO_SDSPI_CS            GPIO_NUM_42
 
 // External I2S DAC
-#define RG_GPIO_SND_I2S_BCK         38
-#define RG_GPIO_SND_I2S_WS          13
-#define RG_GPIO_SND_I2S_DATA        9
+#define RG_GPIO_SND_I2S_BCK         15
+#define RG_GPIO_SND_I2S_WS          16
+#define RG_GPIO_SND_I2S_DATA        17
 #define RG_GPIO_SND_AMP_ENABLE      18
